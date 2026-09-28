@@ -1,0 +1,28 @@
+{
+  "seed": 2026,
+  "columns": {
+    "baseline_risk": "baseline_risk",
+    "exposure": "exposure",
+    "outcome": "outcome"
+  },
+  "binary_coding": {
+    "exposure": {"0": 0, "1": 1},
+    "outcome": {"0": 0, "1": 1}
+  },
+  "dag": {
+    "nodes": ["baseline_risk", "exposure", "outcome"],
+    "edges": [
+      ["baseline_risk", "exposure"],
+      ["baseline_risk", "outcome"],
+      ["exposure", "outcome"]
+    ]
+  },
+  "analysis": {
+    "treatment": "exposure",
+    "outcome": "outcome",
+    "adjust_for": ["baseline_risk"],
+    "numeric_covariates": ["baseline_risk"],
+    "folds": 5,
+    "propensity_clip": 0.01
+  }
+}
