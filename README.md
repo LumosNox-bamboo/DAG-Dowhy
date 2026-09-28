@@ -1,8 +1,8 @@
 # Reusable DAG-guided causal analysis framework
 
-This package turns the **analysis workflow** in the source project into a reusable, data-free template. It accepts a new CSV or XLSX file and a JSON configuration. It does **not** contain the original patient data, names, study results, figures, or a dataset-specific DAG.
+This package is a reusable, data-free causal-analysis template developed after reviewing the source project's DAG/DoWhy workflow. It accepts a new CSV or XLSX file and a JSON configuration. It does **not** contain the original patient data, names, study results, figures, or a dataset-specific DAG. See [SOURCE_WORKFLOW.md](SOURCE_WORKFLOW.md) for the audit of the original code.
 
-**Reproducibility boundary:** The synthetic example and the generic pipeline can be rerun with fixed versions and seed. The original study's published numeric estimates cannot be reproduced from this package: the source directory did not include the original analysis scripts or a frozen, auditable DAG/configuration. Do not cite this package as independent replication of those results.
+**Reproducibility boundary:** The synthetic example and this generic pipeline can be rerun with fixed versions and seed. The original study **does have** a notebook and a separate local reproduction script suite. This repository does not implement their exact `pgmpy`/DoWhy/g-formula branches and therefore does not independently reproduce their numeric results. The local reproduction report documents remaining disagreements with the manuscript. Do not cite this package as independent replication of those results.
 
 The executable analysis estimates the **average treatment effect (ATE)** of a binary exposure on a binary outcome as an absolute **risk difference**. It uses an investigator-specified directed acyclic graph (DAG), validates the proposed backdoor adjustment set, estimates nuisance models with stratified cross-fitting, and reports an augmented inverse-probability-weighted (AIPW) estimate. It also reports standardized outcome risks under the two exposure settings, propensity overlap, weighted effective sample size, and covariate balance.
 
@@ -65,7 +65,7 @@ Review `warnings`, propensity range, clipping count, weighted effective sample s
 
 ## Relationship to the original analysis process
 
-The source materials described graph exploration, effect estimation, hypothetical exposure changes, and robustness checks. This template preserves that sequence conceptually, with several safeguards:
+The source code describes graph exploration, effect estimation, hypothetical exposure changes, and robustness checks. This template addresses the causal-estimation portion with several safeguards; it is not a line-by-line port of the source notebook:
 
 | Source-process element | Reusable implementation or required analyst action |
 | --- | --- |
@@ -93,4 +93,5 @@ The framework is a starting point for transparent observational analysis, **not 
 | `examples/make_synthetic.py` | Fictional-data smoke test generator. |
 | `tests/test_pipeline.py` | DAG validation and synthetic-run checks. |
 | `.github/workflows/test.yml` | Runs tests and a synthetic CLI smoke test on GitHub. |
+| `SOURCE_WORKFLOW.md` | Audit of the original notebook/reproduction scripts and the scope of this template. |
 | `requirements.txt` | Runtime dependencies. |
